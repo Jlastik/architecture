@@ -9,6 +9,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { AUTH_ERROR } from './enum/auth-error.enum';
 import { LoginInfoDto } from './dto/login-info.dto';
 import { AccountDataDto } from './dto/account-data.dto';
+import { userInfo } from 'os';
 @Injectable()
 export class AuthService {
   constructor(
@@ -53,7 +54,6 @@ export class AuthService {
 
   async getAccountById(id: number): Promise<UserEntity> {
     const user = await this.AuthRepository.findOne({ id });
-
     if (!user) {
       throw new NotFoundException(AUTH_ERROR.USER_WITH_THIS_ID_NOT_FOUND);
     }
@@ -62,6 +62,7 @@ export class AuthService {
   }
 
   async getAccountInfo(user: UserEntity): Promise<AccountDataDto> {
+    console.log('USER: ', user);
     const accountData: AccountDataDto = {
       id: user.id,
       login: user.login,

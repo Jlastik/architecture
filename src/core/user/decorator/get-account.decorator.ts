@@ -8,7 +8,6 @@ interface RequestData extends Request {
 export const GetAccount = createParamDecorator(
   (data: string, request: RequestData) => {
     const user: UserEntity = request.user;
-
     return data ? user && user[data] : user;
   },
 );
